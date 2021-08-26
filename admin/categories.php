@@ -2,23 +2,29 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
-<?php include "includes/admin_navigation.php"; ?>
+        <!-- Navigation ------------------------------------------------------------------------------>
+        <?php include "includes/admin_navigation.php"; ?>
     
         <div id="page-wrapper">
             <div class="container-fluid">
 
-                <!-- Page Heading -->
+                <!-- Page Heading -------------------------------------------------------------------->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                            Welcome To Admin
-                            <small>Author</small>
+                            <small>Shaimaa</small>
                         </h1>
 
-                        <div class="col-xs-6">
+                        <!-------------------------------------------- Add Query ---------------------------------------->
+                        <div class="col-xs-12">
+                          <?php AddCategory(); ?>
+                        </div>
 
-                            <form action="">
+                        <!-- Add Category Form ---------------------------------------------------------------------------->
+                        <div class="col-xs-3">
+
+                            <form action="categories.php" method="POST">
                                 <div class="form-group">
                                     <label for="cat-title">Add Catergory</label>
                                     <input class="form-control" type="text" name="cat_title">
@@ -30,28 +36,42 @@
                             </form>
                         </div>
 
-                        <div class="col-x-6">
+                        <?php
+                         //..................................Edit Form.......................................................
+                          updateCategory();
 
+                        ?>
+
+                        <!--The table of categories ------------------------------------------------------------------------->
+                        <div class="col-xs-6">
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
+                                    <th colspan="2">Actions</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>goods</td>
-                                </tr>
+
+                                <form action="categories.php" method="GET">
+                                <?php 
+                                //Find query
+                                  findCategories();
+                                ?>
+
+                                <?php
+                                   //.....................................Delete query...................................
+                                   deleteCategory();
+                                ?>
+
+                                </form>
                             </tbody>
 
                         </table>
 
                         </div>
-
-
-
 
                     </div>
                 </div>

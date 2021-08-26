@@ -23,8 +23,7 @@
 
                         $query = "SELECT * FROM posts WHERE post_tags Like '%$search%'";
                         $search_query= mysqli_query($connection,$query);
-
-
+                        
                         if (!$search_query) 
                             {
                                 die("QUERY FAILD!". mysqli_error($connection));
@@ -34,7 +33,9 @@
 
                         if ($count == 0)
                             {
-                                echo "<h2>NO RESULT FOUND!</h2>";
+                                echo "<div class='alert alert-info' role='alert'>
+                                NO RESULT FOUND!
+                                </div>";
                             }
                             else
                             {

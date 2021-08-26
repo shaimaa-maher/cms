@@ -1,5 +1,5 @@
  <!-- Header -->
-<?php include "includes/header.php"; ?>
+ <?php include "includes/header.php"; ?>
 <?php include "includes/db.php" ?>
 
  <!-- Navigation -->
@@ -16,8 +16,21 @@
 
 
             <?php 
-                $query = "SELECT * FROM posts WHERE post_status='published' ";
+
+            if (isset($_GET['category'])) {
+                $cat_id = $_GET['category'];
+            
+                $query = "SELECT * FROM posts WHERE post_category_id=$cat_id";
+
                 $select_all_posts_query = mysqli_query($connection, $query);
+
+                $count =mysqli_num_rows($select_all_posts_query);
+
+                if ($count==0) {
+                    echo "<div class='alert alert-info' role='alert'>
+                                NO RESULT FOUND!
+                                </div>";
+                }
                 
                 while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                     $post_id = $row['post_id'];
@@ -26,13 +39,9 @@
                     $post_date= $row['post_date'];
                     $post_tags= $row['post_tags'];
                     $post_image= $row['post_image'];
-                    $post_content= substr($row['post_content'],0,100);
-                    $post_status= $row['post_status'];
+                    $post_content= substr($row['post_content'],0,40);
+                    $post_title= $row['post_title'];
 
-
-                    if ($post_status !== 'published') {
-                      echo "<div class='alert alert-info' role='alert'> THERE ARE NOT ANY POSTS!</div>";
-                    }
                     ?>
                     
                
@@ -55,12 +64,12 @@
                 </a>
                 <hr>
                 <p><?php echo $post_content; ?></p>
-                <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id;?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 <hr>
 
                 <!-- the end of the loop -->
 
-                <?php  }  ?>
+                <?php  } } ?>
 
 
                
